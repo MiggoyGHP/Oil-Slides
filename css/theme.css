@@ -121,6 +121,49 @@
 }
 
 /* ── Section Headers ── */
+.section-header {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+.section-header h1 {
+  animation: sectionTitleReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.section-header .section-label {
+  animation: sectionLabelReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+}
+.section-header p {
+  animation: sectionSubReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+.section-header .section-divider {
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  margin: 0.5em auto;
+  border: none;
+  animation: sectionDividerGrow 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+@keyframes sectionLabelReveal {
+  from { opacity: 0; transform: translateY(-20px); letter-spacing: 0.4em; }
+  to   { opacity: 1; transform: translateY(0);     letter-spacing: 0.15em; }
+}
+@keyframes sectionTitleReveal {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+@keyframes sectionDividerGrow {
+  from { opacity: 0; width: 0; }
+  to   { opacity: 1; width: 80px; }
+}
+@keyframes sectionSubReveal {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .section-label {
   font-size: 0.7em;
   font-weight: 700;
@@ -384,8 +427,22 @@
 }
 
 /* ── Quiz Slides ── */
-.quiz-slide {
-  overflow-y: auto !important;
+.reveal .slides section.quiz-slide {
+  overflow-y: scroll !important;
+  height: 660px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-sub) transparent;
+}
+.reveal .slides section.quiz-slide::-webkit-scrollbar {
+  width: 6px;
+}
+.reveal .slides section.quiz-slide::-webkit-scrollbar-track {
+  background: transparent;
+}
+.reveal .slides section.quiz-slide::-webkit-scrollbar-thumb {
+  background: var(--accent-sub);
+  border-radius: 3px;
 }
 .quiz-container {
   max-width: 800px;

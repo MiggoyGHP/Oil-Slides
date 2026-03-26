@@ -222,7 +222,7 @@ function renderPriceChart(data, container) {
     handleScroll: { mouseWheel: true, pressedMouseMove: true },
   });
 
-  const candleSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
+  const candleSeries = chart.addCandlestickSeries({
     upColor: '#FFD700',
     downColor: '#E63946',
     borderUpColor: '#FFD700',
@@ -233,19 +233,19 @@ function renderPriceChart(data, container) {
   candleSeries.setData(data);
 
   // EMAs
-  const ema20 = chart.addSeries(LightweightCharts.LineSeries, {
+  const ema20 = chart.addLineSeries({
     color: '#00BCD4', lineWidth: 1, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
   });
   ema20.setData(computeEMA(data, 20));
 
-  const ema50 = chart.addSeries(LightweightCharts.LineSeries, {
+  const ema50 = chart.addLineSeries({
     color: '#FF9800', lineWidth: 1, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
   });
   ema50.setData(computeEMA(data, 50));
 
-  const ema200 = chart.addSeries(LightweightCharts.LineSeries, {
+  const ema200 = chart.addLineSeries({
     color: '#E040FB', lineWidth: 1, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
   });
@@ -284,19 +284,19 @@ function renderMACDChart(data, container) {
 
   const { macd, signal, histogram } = computeMACD(data);
 
-  const histSeries = chart.addSeries(LightweightCharts.HistogramSeries, {
+  const histSeries = chart.addHistogramSeries({
     priceLineVisible: false, lastValueVisible: false,
     priceFormat: { type: 'price', precision: 2, minMove: 0.01 },
   });
   histSeries.setData(histogram);
 
-  const macdSeries = chart.addSeries(LightweightCharts.LineSeries, {
+  const macdSeries = chart.addLineSeries({
     color: '#00BCD4', lineWidth: 1.5, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
   });
   macdSeries.setData(macd);
 
-  const signalSeries = chart.addSeries(LightweightCharts.LineSeries, {
+  const signalSeries = chart.addLineSeries({
     color: '#FF9800', lineWidth: 1.5, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
   });

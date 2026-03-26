@@ -51,6 +51,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Enable scrolling on quiz slides by intercepting wheel events
+  document.querySelector('.reveal').addEventListener('wheel', function(e) {
+    const quizSlide = e.target.closest('.quiz-slide');
+    if (quizSlide) {
+      const atTop = quizSlide.scrollTop <= 0;
+      const atBottom = quizSlide.scrollTop + quizSlide.clientHeight >= quizSlide.scrollHeight - 2;
+      // Only let Reveal handle it if fully scrolled to boundary in that direction
+      if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+        return; // let Reveal navigate
+      }
+      e.stopPropagation(); // prevent Reveal from changing slides
+    }
+  }, true);
+
   // Agenda click navigation
   document.querySelectorAll('.agenda-link').forEach(link => {
     link.addEventListener('click', function(e) {
