@@ -139,14 +139,14 @@ async function openChartModal(ticker) {
         <button class="chart-modal-tab" data-tab="balance">Balance Sheet</button>
       </div>
       <div class="chart-modal-body">
-        <div id="tab-chart" class="tab-content">
+        <div id="tab-chart" class="tab-content" style="display:flex; flex-direction:column; height:100%;">
           <div class="chart-legend">
             <span><span class="dot" style="background:#00BCD4"></span> 20 EMA</span>
             <span><span class="dot" style="background:#FF9800"></span> 50 EMA</span>
             <span><span class="dot" style="background:#E040FB"></span> 200 EMA</span>
           </div>
-          <div id="price-chart" class="chart-container" style="height: calc(60% - 30px);"></div>
-          <div id="macd-chart" class="chart-container" style="height: 35%; margin-top: 8px;"></div>
+          <div id="price-chart" class="chart-container" style="flex: 3; min-height:0;"></div>
+          <div id="macd-chart" class="chart-container" style="flex: 1.5; min-height:0; margin-top: 8px;"></div>
         </div>
         <div id="tab-financials" class="tab-content" style="display:none;">
           <div class="financials-placeholder">
