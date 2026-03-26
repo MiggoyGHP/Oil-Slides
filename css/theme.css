@@ -380,9 +380,13 @@
 }
 
 /* ── Quiz Slides ── */
+.quiz-slide {
+  overflow-y: auto !important;
+}
 .quiz-container {
   max-width: 800px;
   margin: 0 auto;
+  padding-bottom: 40px;
 }
 .quiz-header {
   text-align: center;
@@ -399,8 +403,8 @@
   background: var(--bg-light);
   border: 1px solid rgba(173, 136, 52, 0.2);
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 16px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
 }
 .quiz-question-text {
   font-weight: 600;
@@ -417,7 +421,7 @@
   background: var(--bg-lighter);
   border: 1px solid rgba(173, 136, 52, 0.15);
   border-radius: 6px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   color: var(--text);
   cursor: pointer;
   font-family: var(--font);
