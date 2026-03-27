@@ -194,6 +194,9 @@ async function openChartModal(ticker) {
     };
   });
 
+  // Render financials data into the Financials tab
+  renderFinancials(ticker, overlay.querySelector('#tab-financials'));
+
   const data = await fetchTickerData(ticker);
   if (!data || data.length === 0) return;
 
@@ -320,6 +323,68 @@ function renderMACDChart(data, container) {
     chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
   });
   ro.observe(container);
+}
+
+function renderFinancials(ticker, container) {
+  const fd = typeof FINANCIAL_DATA !== 'undefined' ? FINANCIAL_DATA[ticker] : null;
+  if (!fd) return; // keep placeholder
+
+  function render(view) {
+    const vd = fd[view];
+    if (!vd) return;
+
+    const rows = [
+      { label: 'Revenue',          key: 'revenue' },
+      { label: 'Gross Profit',     key: 'grossProfit' },
+      { label: 'Operating Income', key: 'operatingIncome' },
+      { label: 'Net Income',       key: 'netIncome', hl: true },
+      { sep: true },
+      { label: 'Gross Margin',     fn: i => vd.grossProfit[i] / vd.revenue[i] },
+      { label: 'Operating Margin', fn: i => vd.operatingIncome[i] / vd.revenue[i] },
+      { label: 'Net Margin',       fn: i => vd.netIncome[i] / vd.revenue[i] },
+    ];
+
+    let h = `<div class="fin-toggle-bar">
+      <button class="fin-btn${view === 'annual' ? ' active' : ''}" data-v="annual">Annual</button>
+      <button class="fin-btn${view === 'quarterly' ? ' active' : ''}" data-v="quarterly">Quarterly</button>
+    </div>
+    <div class="fin-table-wrap"><table class="fin-table">
+      <thead><tr><th></th>${vd.periods.map(p => `<th>${p}</th>`).join('')}</tr></thead><tbody>`;
+
+    rows.forEach(r => {
+      if (r.sep) { h += `<tr class="fin-sep"><td colspan="${vd.periods.length + 1}"></td></tr>`; return; }
+      const rc = r.hl ? ' fin-hl' : (r.fn ? ' fin-mg' : '');
+      h += `<tr class="${rc}"><td class="fin-lbl">${r.label}</td>`;
+      vd.periods.forEach((_, i) => {
+        if (r.fn) {
+          const v = r.fn(i);
+          const neg = v < 0 ? ' neg' : '';
+          h += `<td class="${neg}">${(v * 100).toFixed(1)}%</td>`;
+        } else {
+          const v = vd[r.key][i];
+          h += `<td class="${v < 0 ? 'neg' : ''}">${fmtB(v)}</td>`;
+        }
+      });
+      h += '</tr>';
+    });
+
+    h += '</tbody></table></div><div class="fin-src">Source: TradingView</div>';
+    container.innerHTML = h;
+    container.querySelectorAll('.fin-btn').forEach(b => {
+      b.onclick = () => render(b.dataset.v);
+    });
+  }
+
+  render('annual');
+}
+
+function fmtB(v) {
+  if (v == null) return '—';
+  const a = Math.abs(v);
+  const s = v < 0 ? '−' : '';
+  if (a >= 1) return `${s}$${a.toFixed(2)}B`;
+  if (a >= 0.01) return `${s}$${(a * 1000).toFixed(0)}M`;
+  return `${s}$${(a * 1000).toFixed(1)}M`;
 }
 
 function closeChartModal(overlay) {
