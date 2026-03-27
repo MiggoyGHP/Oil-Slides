@@ -541,10 +541,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 .chart-modal-body > .tab-content {
   flex: 1;
   min-height: 0;
+}
+.chart-modal-body > .tab-content:not(#tab-chart) {
+  overflow: auto;
 }
 .chart-container {
   width: 100%;

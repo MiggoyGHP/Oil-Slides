@@ -151,7 +151,7 @@ async function openChartModal(ticker) {
           <div id="price-chart" class="chart-container" style="flex: 3; min-height:0;"></div>
           <div id="macd-chart" class="chart-container" style="flex: 1.5; min-height:0; margin-top: 8px;"></div>
         </div>
-        <div id="tab-financials" class="tab-content" style="display:none; overflow-y:auto;">
+        <div id="tab-financials" class="tab-content" style="display:none;">
           <div class="financials-placeholder">
             <div class="icon">&#128202;</div>
             <p>Earnings & financial data for <strong>${ticker}</strong> will be available soon.</p>
