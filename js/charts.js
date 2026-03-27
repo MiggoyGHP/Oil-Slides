@@ -140,7 +140,6 @@ async function openChartModal(ticker) {
       <div class="chart-modal-tabs">
         <button class="chart-modal-tab active" data-tab="chart">Chart</button>
         <button class="chart-modal-tab" data-tab="financials">Financials</button>
-        <button class="chart-modal-tab" data-tab="balance">Balance Sheet</button>
       </div>
       <div class="chart-modal-body">
         <div id="tab-chart" class="tab-content" style="display:flex; flex-direction:column; height:100%;">
@@ -152,17 +151,10 @@ async function openChartModal(ticker) {
           <div id="price-chart" class="chart-container" style="flex: 3; min-height:0;"></div>
           <div id="macd-chart" class="chart-container" style="flex: 1.5; min-height:0; margin-top: 8px;"></div>
         </div>
-        <div id="tab-financials" class="tab-content" style="display:none;">
+        <div id="tab-financials" class="tab-content" style="display:none; overflow-y:auto;">
           <div class="financials-placeholder">
             <div class="icon">&#128202;</div>
             <p>Earnings & financial data for <strong>${ticker}</strong> will be available soon.</p>
-            <p style="font-size:0.8em; color: var(--on-surface-variant)">Awaiting data from analyst screenshots.</p>
-          </div>
-        </div>
-        <div id="tab-balance" class="tab-content" style="display:none;">
-          <div class="financials-placeholder">
-            <div class="icon">&#128200;</div>
-            <p>Balance sheet data for <strong>${ticker}</strong> will be available soon.</p>
             <p style="font-size:0.8em; color: var(--on-surface-variant)">Awaiting data from analyst screenshots.</p>
           </div>
         </div>
@@ -329,16 +321,26 @@ function renderFinancials(ticker, container) {
   const fd = typeof FINANCIAL_DATA !== 'undefined' ? FINANCIAL_DATA[ticker] : null;
   if (!fd) return; // keep placeholder
 
+  function fmtGrowth(curr, prev) {
+    if (prev == null || curr == null || prev === 0) return '';
+    const pct = ((curr - prev) / Math.abs(prev)) * 100;
+    const sign = pct >= 0 ? '+' : '';
+    const cls = pct >= 0 ? 'growth-pos' : 'growth-neg';
+    return `<span class="fin-growth ${cls}">${sign}${pct.toFixed(1)}%</span>`;
+  }
+
   function render(view) {
     const vd = fd[view];
     if (!vd) return;
 
-    const rows = [
+    const metrics = [
       { label: 'Revenue',          key: 'revenue' },
       { label: 'Gross Profit',     key: 'grossProfit' },
       { label: 'Operating Income', key: 'operatingIncome' },
       { label: 'Net Income',       key: 'netIncome', hl: true },
-      { sep: true },
+    ];
+
+    const margins = [
       { label: 'Gross Margin',     fn: i => vd.grossProfit[i] / vd.revenue[i] },
       { label: 'Operating Margin', fn: i => vd.operatingIncome[i] / vd.revenue[i] },
       { label: 'Net Margin',       fn: i => vd.netIncome[i] / vd.revenue[i] },
@@ -347,28 +349,71 @@ function renderFinancials(ticker, container) {
     let h = `<div class="fin-toggle-bar">
       <button class="fin-btn${view === 'annual' ? ' active' : ''}" data-v="annual">Annual</button>
       <button class="fin-btn${view === 'quarterly' ? ' active' : ''}" data-v="quarterly">Quarterly</button>
-    </div>
-    <div class="fin-table-wrap"><table class="fin-table">
+    </div>`;
+
+    // Income statement section
+    h += `<div class="fin-section-label">Income Statement</div>`;
+    h += `<div class="fin-table-wrap"><table class="fin-table">
       <thead><tr><th></th>${vd.periods.map(p => `<th>${p}</th>`).join('')}</tr></thead><tbody>`;
 
-    rows.forEach(r => {
-      if (r.sep) { h += `<tr class="fin-sep"><td colspan="${vd.periods.length + 1}"></td></tr>`; return; }
-      const rc = r.hl ? ' fin-hl' : (r.fn ? ' fin-mg' : '');
+    metrics.forEach(r => {
+      const rc = r.hl ? ' fin-hl' : '';
+      // Value row
       h += `<tr class="${rc}"><td class="fin-lbl">${r.label}</td>`;
       vd.periods.forEach((_, i) => {
-        if (r.fn) {
-          const v = r.fn(i);
-          const neg = v < 0 ? ' neg' : '';
-          h += `<td class="${neg}">${(v * 100).toFixed(1)}%</td>`;
+        const v = vd[r.key][i];
+        h += `<td class="${v < 0 ? 'neg' : ''}">${fmtB(v)}</td>`;
+      });
+      h += '</tr>';
+      // Growth row
+      h += `<tr class="fin-growth-row${r.hl ? ' fin-hl' : ''}"><td></td>`;
+      vd.periods.forEach((_, i) => {
+        if (i === 0) {
+          h += '<td></td>';
         } else {
-          const v = vd[r.key][i];
-          h += `<td class="${v < 0 ? 'neg' : ''}">${fmtB(v)}</td>`;
+          h += `<td>${fmtGrowth(vd[r.key][i], vd[r.key][i - 1])}</td>`;
         }
       });
       h += '</tr>';
     });
 
-    h += '</tbody></table></div><div class="fin-src">Source: TradingView</div>';
+    h += '</tbody></table></div>';
+
+    // Margins section
+    h += `<div class="fin-section-label">Profitability</div>`;
+    h += `<div class="fin-table-wrap"><table class="fin-table fin-table-margins">
+      <thead><tr><th></th>${vd.periods.map(p => `<th>${p}</th>`).join('')}</tr></thead><tbody>`;
+
+    margins.forEach(r => {
+      h += `<tr class="fin-mg"><td class="fin-lbl">${r.label}</td>`;
+      vd.periods.forEach((_, i) => {
+        const v = r.fn(i);
+        const pct = (v * 100).toFixed(1);
+        const neg = v < 0 ? ' neg' : '';
+        // Color-code margin health: green if good, red if negative
+        h += `<td class="${neg}">${pct}%</td>`;
+      });
+      h += '</tr>';
+      // Margin change row (pp change)
+      h += `<tr class="fin-growth-row"><td></td>`;
+      vd.periods.forEach((_, i) => {
+        if (i === 0) {
+          h += '<td></td>';
+        } else {
+          const curr = r.fn(i) * 100;
+          const prev = r.fn(i - 1) * 100;
+          const delta = curr - prev;
+          const sign = delta >= 0 ? '+' : '';
+          const cls = delta >= 0 ? 'growth-pos' : 'growth-neg';
+          h += `<td><span class="fin-growth ${cls}">${sign}${delta.toFixed(1)}pp</span></td>`;
+        }
+      });
+      h += '</tr>';
+    });
+
+    h += '</tbody></table></div>';
+    h += '<div class="fin-src">Source: TradingView</div>';
+
     container.innerHTML = h;
     container.querySelectorAll('.fin-btn').forEach(b => {
       b.onclick = () => render(b.dataset.v);
