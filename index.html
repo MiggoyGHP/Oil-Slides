@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oil 101 — Analyst Primer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="css/theme.css">
 </head>
@@ -25,19 +27,19 @@
       </section>
 
       <!-- ============================================================ -->
-      <!-- SLIDE 2: Agenda -->
+      <!-- SLIDE 2: Agenda (clickable) -->
       <!-- ============================================================ -->
       <section>
         <h2>Agenda</h2>
-        <ol class="agenda-list">
-          <li><span class="agenda-num">01</span> <span>What Is Crude Oil? — Grades, gravity & global supply</span></li>
-          <li><span class="agenda-num">02</span> <span>The Oil Value Chain — Upstream, midstream & downstream</span></li>
-          <li><span class="agenda-num">03</span> <span>What's in a Barrel? — Products, benchmarks & refining</span></li>
-          <li><span class="agenda-num">04</span> <span>The Companies — E&P, midstream, refiners, supermajors, OFS</span></li>
-          <li><span class="agenda-num">05</span> <span>Oil Pricing & Futures — Contango, backwardation & key data</span></li>
-          <li><span class="agenda-num">06</span> <span>Geopolitics & the 2026 Crisis — OPEC+, Hormuz & Iran</span></li>
-          <li><span class="agenda-num">07</span> <span>Venezuela — The sleeping giant of oil reserves</span></li>
-          <li><span class="agenda-num">08</span> <span>Investment Thesis & Recommendations</span></li>
+        <ol class="agenda-list" id="agenda">
+          <li class="agenda-link" data-section="0"><span class="agenda-num">01</span> <span>What Is Crude Oil? — Grades, gravity & global supply</span></li>
+          <li class="agenda-link" data-section="1"><span class="agenda-num">02</span> <span>The Oil Value Chain — Upstream, midstream & downstream</span></li>
+          <li class="agenda-link" data-section="2"><span class="agenda-num">03</span> <span>What's in a Barrel? — Products, benchmarks & refining</span></li>
+          <li class="agenda-link" data-section="3"><span class="agenda-num">04</span> <span>The Companies — E&P, midstream, refiners, supermajors, OFS</span></li>
+          <li class="agenda-link" data-section="4"><span class="agenda-num">05</span> <span>Oil Pricing & Futures — Contango, backwardation & key data</span></li>
+          <li class="agenda-link" data-section="5"><span class="agenda-num">06</span> <span>Geopolitics & the 2026 Crisis — OPEC+, Hormuz & Iran</span></li>
+          <li class="agenda-link" data-section="6"><span class="agenda-num">07</span> <span>Venezuela — The sleeping giant of oil reserves</span></li>
+          <li class="agenda-link" data-section="7"><span class="agenda-num">08</span> <span>Investment Thesis & Recommendations</span></li>
         </ol>
       </section>
 
@@ -48,10 +50,10 @@
         <span class="section-label">Section 01</span>
         <h1>What Is Crude Oil?</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">Formation, classification & why it matters</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">Formation, classification & why it matters</p>
       </section>
 
-      <!-- SLIDE 4: Oil Basics -->
+      <!-- Crude Oil Basics -->
       <section>
         <h2>Crude Oil — The Basics</h2>
         <div class="two-col">
@@ -72,7 +74,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 5: API Gravity -->
+      <!-- API Gravity -->
       <section>
         <h2><span class="term" data-term="API Gravity">API Gravity</span> & Crude Classification</h2>
         <p>API Gravity is the industry-standard density measurement. Higher number = lighter oil = easier to refine = higher price.</p>
@@ -92,12 +94,12 @@
         </div>
       </section>
 
-      <!-- SLIDE 6: Sweet vs Sour -->
+      <!-- Sweet vs Sour -->
       <section>
         <h2><span class="term" data-term="Sweet Crude">Sweet</span> vs <span class="term" data-term="Sour Crude">Sour</span> Crude</h2>
         <div class="two-col">
-          <div class="card card-accent">
-            <h3 style="color:#4CAF50;">Sweet Crude (&lt;0.5% sulfur)</h3>
+          <div class="card card-positive card-accent" style="border-left-color: var(--positive);">
+            <h3 style="color: var(--positive);">Sweet Crude (&lt;0.5% sulfur)</h3>
             <ul>
               <li>Easier and cheaper to refine</li>
               <li>Higher yield of gasoline & diesel</li>
@@ -105,8 +107,8 @@
               <li>Examples: <span class="term" data-term="WTI">WTI</span> (0.24%), <span class="term" data-term="Brent">Brent</span> (0.37%)</li>
             </ul>
           </div>
-          <div class="card card-accent" style="border-left-color: var(--negative);">
-            <h3 style="color:var(--negative);">Sour Crude (&gt;0.5% sulfur)</h3>
+          <div class="card card-negative card-accent" style="border-left-color: var(--error);">
+            <h3 style="color: var(--error);">Sour Crude (&gt;0.5% sulfur)</h3>
             <ul>
               <li>Requires hydrotreating / hydrodesulfurization</li>
               <li>More expensive to process</li>
@@ -120,7 +122,41 @@
         </div>
       </section>
 
-      <!-- SLIDE 7: Global Supply & Demand -->
+      <!-- NEW SLIDE: Crude Quality Matrix -->
+      <section>
+        <h2>Crude Quality Matrix</h2>
+        <p>How crude grades are classified by two key dimensions:</p>
+        <div class="quality-matrix">
+          <div class="matrix-y-label">Light<br><span class="matrix-label-sub">High API</span></div>
+          <div class="matrix-cell matrix-q1">
+            <div class="matrix-cell-title">Light Sweet</div>
+            <div class="matrix-cell-premium">$$$ Premium Grade</div>
+            <div class="matrix-cell-examples"><span class="term" data-term="WTI">WTI</span> (39.6° API, 0.24% S)<br><span class="term" data-term="Brent">Brent</span> (38° API, 0.37% S)<br>Bonny Light</div>
+          </div>
+          <div class="matrix-cell matrix-q2">
+            <div class="matrix-cell-title">Light Sour</div>
+            <div class="matrix-cell-examples">Arab Light (32° API, 1.8% S)<br>Kirkuk<br>Requires active desulfurization</div>
+          </div>
+          <div class="matrix-y-label">Heavy<br><span class="matrix-label-sub">Low API</span></div>
+          <div class="matrix-cell matrix-q3">
+            <div class="matrix-cell-title">Heavy Sweet</div>
+            <div class="matrix-cell-examples">Relatively rare physical profile<br>Some West African grades<br>Trades at density discount</div>
+          </div>
+          <div class="matrix-cell matrix-q4">
+            <div class="matrix-cell-title">Heavy Sour</div>
+            <div class="matrix-cell-discount">$ Discount Grade</div>
+            <div class="matrix-cell-examples"><span class="term" data-term="WCS">WCS</span> (20.5° API, 3.5% S)<br><span class="term" data-term="Orinoco Belt">Orinoco</span> (8° API, 4%+ S)<br>Canadian Oil Sands, Merey</div>
+          </div>
+          <div class="matrix-spacer"></div>
+          <div class="matrix-x-label">Sweet (&lt;0.5% S)</div>
+          <div class="matrix-x-label">Sour (&gt;0.5% S)</div>
+        </div>
+        <div class="insight-box" style="margin-top:12px;">
+          <strong>Quality Spread:</strong> The price difference between Light-Sweet and Heavy-Sour dictates global refinery economics. Complex refiners profit from buying cheap heavy-sour crude.
+        </div>
+      </section>
+
+      <!-- Global Supply & Demand -->
       <section>
         <h2>Global Oil Supply & Demand</h2>
         <div class="stat-row">
@@ -143,7 +179,7 @@
         </table>
       </section>
 
-      <!-- SLIDE 8: Quiz 1 -->
+      <!-- Quiz 1 -->
       <section class="quiz-slide" data-quiz="quiz1">
         <div class="quiz-container"></div>
       </section>
@@ -155,35 +191,35 @@
         <span class="section-label">Section 02</span>
         <h1>The Oil Value Chain</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">Upstream → Midstream → Downstream</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">Upstream → Midstream → Downstream</p>
       </section>
 
-      <!-- SLIDE 10: Value Chain Overview -->
+      <!-- Value Chain Overview -->
       <section>
         <h2>Oil Value Chain Overview</h2>
         <div style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:12px; align-items:stretch; margin-top:20px;">
           <div class="chain-segment">
             <h3>Upstream</h3>
             <p style="font-size:0.8em;"><span class="term" data-term="E&P">E&P</span> — Exploration & Production</p>
-            <p style="font-size:0.75em; color:var(--text-muted);">Find it. Drill it. Pump it.</p>
+            <p style="font-size:0.75em; color:var(--on-surface-variant);">Find it. Drill it. Pump it.</p>
             <p style="font-size:0.75em;"><strong>Revenue</strong> = Volume × Price</p>
-            <p style="font-size:0.7em; color:var(--text-muted);">Highest oil price sensitivity</p>
+            <p style="font-size:0.7em; color:var(--on-surface-variant);">Highest oil price sensitivity</p>
           </div>
           <div class="chain-arrow">→</div>
           <div class="chain-segment">
             <h3>Midstream</h3>
             <p style="font-size:0.8em;">Transport, Store & Process</p>
-            <p style="font-size:0.75em; color:var(--text-muted);">Pipelines. Terminals. Processing plants.</p>
+            <p style="font-size:0.75em; color:var(--on-surface-variant);">Pipelines. Terminals. Processing plants.</p>
             <p style="font-size:0.75em;"><strong>Revenue</strong> = Fee-based / <span class="term" data-term="Take-or-Pay">Take-or-Pay</span></p>
-            <p style="font-size:0.7em; color:var(--text-muted);">Lowest oil price sensitivity</p>
+            <p style="font-size:0.7em; color:var(--on-surface-variant);">Lowest oil price sensitivity</p>
           </div>
           <div class="chain-arrow">→</div>
           <div class="chain-segment">
             <h3>Downstream</h3>
             <p style="font-size:0.8em;">Refining & Marketing</p>
-            <p style="font-size:0.75em; color:var(--text-muted);">Refine crude into gasoline, diesel, jet fuel.</p>
+            <p style="font-size:0.75em; color:var(--on-surface-variant);">Refine crude into gasoline, diesel, jet fuel.</p>
             <p style="font-size:0.75em;"><strong>Revenue</strong> = <span class="term" data-term="Crack Spread">Crack Spread</span></p>
-            <p style="font-size:0.7em; color:var(--text-muted);">INVERSE oil price sensitivity</p>
+            <p style="font-size:0.7em; color:var(--on-surface-variant);">INVERSE oil price sensitivity</p>
           </div>
         </div>
         <div class="insight-box" style="margin-top:16px;">
@@ -191,7 +227,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 11: Upstream Deep Dive -->
+      <!-- Upstream Deep Dive -->
       <section>
         <h2>Upstream — Exploration & Production</h2>
         <div class="two-col">
@@ -221,7 +257,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 12: Midstream Deep Dive -->
+      <!-- Midstream Deep Dive -->
       <section>
         <h2>Midstream — Pipelines, Storage & Processing</h2>
         <div class="two-col">
@@ -252,7 +288,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 13: Downstream Deep Dive -->
+      <!-- Downstream Deep Dive -->
       <section>
         <h2>Downstream — Refining & Marketing</h2>
         <div class="two-col">
@@ -264,6 +300,27 @@
               <li><strong>Inverse sensitivity</strong>: cheap crude + high product demand = fat margins</li>
               <li><span class="term" data-term="Turnaround">Turnarounds</span> (scheduled maintenance) temporarily cut throughput</li>
             </ul>
+            <!-- ENHANCED: 3-2-1 Crack Spread Visual -->
+            <div class="crack-spread-visual">
+              <div class="crack-input">
+                <div class="crack-barrel crack-crude">
+                  <span class="crack-count">3</span>
+                  <span class="crack-label">Crude In</span>
+                </div>
+              </div>
+              <div class="crack-arrow">&#10132;</div>
+              <div class="crack-output">
+                <div class="crack-barrel crack-gasoline">
+                  <span class="crack-count">2</span>
+                  <span class="crack-label">Gasoline</span>
+                </div>
+                <div class="crack-plus">+</div>
+                <div class="crack-barrel crack-diesel">
+                  <span class="crack-count">1</span>
+                  <span class="crack-label">Diesel</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <h3>Refinery Complexity</h3>
@@ -275,9 +332,41 @@
                 <li><span class="term" data-term="Hydrocracking">Hydrocracking</span> — Produces cleaner diesel & jet fuel</li>
                 <li>Coking — Converts bottom-of-the-barrel residual</li>
               </ul>
-              <p style="font-size:0.8em; margin-top:8px; color:var(--accent-sub);">Complex refineries can run cheap heavy/sour crude and still produce premium products.</p>
+              <p style="font-size:0.8em; margin-top:8px; color:var(--primary-dim);">Complex refineries can run cheap heavy/sour crude and still produce premium products.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- NEW SLIDE: Refinery Complexity Pyramid -->
+      <section>
+        <h2>Refinery Complexity Pyramid</h2>
+        <p>Three tiers of refinery sophistication — higher complexity unlocks wider crude flexibility and better margins:</p>
+        <div class="refinery-pyramid">
+          <div class="pyramid-tier pyramid-tier-3">
+            <div class="pyramid-bar">
+              <span class="pyramid-label">Very Complex (Deep Conversion)</span>
+              <span class="pyramid-detail">NCI &gt; 12 | Coking + Hydrocracking + FCC</span>
+              <span class="pyramid-edge">Process any crude; highest structural margins</span>
+            </div>
+          </div>
+          <div class="pyramid-tier pyramid-tier-2">
+            <div class="pyramid-bar">
+              <span class="pyramid-label">Complex</span>
+              <span class="pyramid-detail">NCI 8–12 | FCC + Hydrotreating</span>
+              <span class="pyramid-edge">Handle medium/sour crude; removes sulfur</span>
+            </div>
+          </div>
+          <div class="pyramid-tier pyramid-tier-1">
+            <div class="pyramid-bar">
+              <span class="pyramid-label">Simple (Topping)</span>
+              <span class="pyramid-detail">NCI &lt; 8 | Distillation only</span>
+              <span class="pyramid-edge">Light sweet crude only; lowest margins</span>
+            </div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-top:16px;">
+          <strong>Trading insight:</strong> When heavy-sour crude trades at a deep discount, complex refiners like <span class="ticker" data-ticker="VLO">VLO</span> print money — buying the cheapest input and selling the most expensive output.
         </div>
       </section>
 
@@ -288,10 +377,10 @@
         <span class="section-label">Section 03</span>
         <h1>What's in a Barrel?</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">Products, benchmarks & pricing</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">Products, benchmarks & pricing</p>
       </section>
 
-      <!-- SLIDE 15: Barrel Breakdown -->
+      <!-- Barrel Breakdown -->
       <section>
         <h2>Anatomy of a <span class="term" data-term="Barrel">Barrel</span> of Oil</h2>
         <p>One barrel (42 gallons) of crude yields roughly 45 gallons of products (refining gain):</p>
@@ -323,7 +412,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 16: Oil Benchmarks -->
+      <!-- Oil Benchmarks -->
       <section>
         <h2>Global Oil Benchmarks</h2>
         <p>Three benchmark crudes price the majority of the world's oil:</p>
@@ -336,6 +425,7 @@
               <li>Delivery: Cushing, Oklahoma</li>
               <li>39.6° API, 0.24% sulfur</li>
               <li>US domestic benchmark</li>
+              <li>Current: ~$90/bbl</li>
             </ul>
           </div>
           <div class="card card-accent">
@@ -346,6 +436,7 @@
               <li>Prices ~75% of world oil</li>
               <li>38° API, 0.37% sulfur</li>
               <li>THE global benchmark</li>
+              <li>Current: ~$102/bbl</li>
             </ul>
           </div>
           <div class="card card-accent">
@@ -360,11 +451,11 @@
           </div>
         </div>
         <div class="insight-box" style="margin-top:12px;">
-          <strong>Brent-WTI spread</strong> reflects US vs global supply dynamics. When US oversupplied → WTI discount widens.
+          <strong>Brent-WTI spread ($12):</strong> WTI trading at deep discount to Brent — Middle East disruptions bypass landlocked US production, insulating US E&P producers.
         </div>
       </section>
 
-      <!-- SLIDE 17: Quiz 2 -->
+      <!-- Quiz 2 -->
       <section class="quiz-slide" data-quiz="quiz2">
         <div class="quiz-container"></div>
       </section>
@@ -376,10 +467,10 @@
         <span class="section-label">Section 04</span>
         <h1>The Companies</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">E&P, Midstream, Refiners, Supermajors & OFS</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">E&P, Midstream, Refiners, Supermajors & OFS</p>
       </section>
 
-      <!-- SLIDE 19: E&P Companies -->
+      <!-- E&P Companies -->
       <section>
         <h2>E&P — Key Players</h2>
         <p>The pure-play upstream producers. Click any ticker to see its chart.</p>
@@ -400,13 +491,13 @@
         </div>
       </section>
 
-      <!-- SLIDE 20: E&P Capital Discipline -->
+      <!-- E&P Capital Discipline -->
       <section>
         <h2>E&P — The Capital Discipline Era</h2>
         <div class="two-col">
           <div>
             <h3>Pre-2020: Growth at All Costs</h3>
-            <div class="card" style="border-left: 3px solid var(--negative);">
+            <div class="card card-negative" style="border-left: 3px solid var(--error);">
               <ul style="font-size:0.8em;">
                 <li>Drill, drill, drill — production growth was king</li>
                 <li>Outspend cash flow, fund with debt & equity</li>
@@ -417,7 +508,7 @@
           </div>
           <div>
             <h3>Post-2020: Capital Discipline</h3>
-            <div class="card" style="border-left: 3px solid #4CAF50;">
+            <div class="card card-positive" style="border-left: 3px solid var(--positive);">
               <ul style="font-size:0.8em;">
                 <li>Cap reinvestment at 50-60% of cash flow</li>
                 <li>Return the rest via buybacks + dividends</li>
@@ -432,7 +523,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 21: Midstream Companies -->
+      <!-- Midstream Companies -->
       <section>
         <h2>Midstream — Key Players</h2>
         <p>Infrastructure owners with fee-based, toll-road-style revenue models.</p>
@@ -453,7 +544,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 22: Downstream / Refiners -->
+      <!-- Downstream / Refiners -->
       <section>
         <h2>Downstream — US Refiners</h2>
         <p>Independent refiners profit from the <span class="term" data-term="Crack Spread">crack spread</span>, not the oil price itself.</p>
@@ -479,7 +570,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 23: Supermajors -->
+      <!-- Supermajors -->
       <section>
         <h2>Integrated Supermajors</h2>
         <p>Vertically integrated across the entire value chain — upstream, midstream, downstream, chemicals, and trading.</p>
@@ -510,7 +601,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 24: OFS Companies -->
+      <!-- OFS Companies -->
       <section>
         <h2><span class="term" data-term="OFS">Oilfield Services</span></h2>
         <p>The "picks and shovels" of the oil industry — they sell equipment, technology, and expertise to E&P companies.</p>
@@ -529,7 +620,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 25: Quiz 3 -->
+      <!-- Quiz 3 -->
       <section class="quiz-slide" data-quiz="quiz3">
         <div class="quiz-container"></div>
       </section>
@@ -541,10 +632,10 @@
         <span class="section-label">Section 05</span>
         <h1>Oil Pricing & Futures</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">Contango, backwardation & the data that moves markets</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">Contango, backwardation & the data that moves markets</p>
       </section>
 
-      <!-- SLIDE 27: Contango vs Backwardation -->
+      <!-- ENHANCED: Contango vs Backwardation with SVG curves -->
       <section>
         <h2><span class="term" data-term="Contango">Contango</span> vs <span class="term" data-term="Backwardation">Backwardation</span></h2>
         <p>The shape of the futures curve reveals the market's view of supply/demand balance:</p>
@@ -553,29 +644,66 @@
             <h3>Contango (Oversupply)</h3>
             <p style="font-size:0.85em;">Far-month futures <strong>&gt;</strong> near-month (spot)</p>
             <ul style="font-size:0.8em;">
-              <li>Market has excess supply or weak near-term demand</li>
-              <li>Incentivizes storage plays — buy cheap spot, sell expensive futures</li>
-              <li>Classic sign: oil tankers used as floating storage</li>
-              <li><em>Example: COVID-19 crash (April 2020) — extreme contango</em></li>
+              <li>Excess supply or weak near-term demand</li>
+              <li>Incentivizes storage plays — buy spot, sell futures</li>
+              <li>Classic sign: tankers used as floating storage</li>
             </ul>
+            <svg class="futures-curve" viewBox="0 0 200 70" preserveAspectRatio="none">
+              <path class="curve-line curve-contango" d="M 10,55 Q 60,50 100,35 T 190,12" stroke="#E63946" />
+              <text x="8" y="68" class="curve-label">Spot</text>
+              <text x="155" y="10" class="curve-label">Far month</text>
+            </svg>
           </div>
           <div class="scenario-card scenario-bull">
             <h3>Backwardation (Tight Supply)</h3>
             <p style="font-size:0.85em;">Near-month (spot) <strong>&gt;</strong> far-month futures</p>
             <ul style="font-size:0.8em;">
-              <li>Market is tight — oil is more valuable today than tomorrow</li>
+              <li>Market is tight — oil more valuable today</li>
               <li>Incentivizes drawing down inventories</li>
-              <li>Bullish signal for producers — immediate cash flows higher</li>
-              <li><em>Example: 2022 post-Ukraine invasion — steep backwardation</em></li>
+              <li>Strongest bullish signal in oil markets</li>
             </ul>
+            <svg class="futures-curve" viewBox="0 0 200 70" preserveAspectRatio="none">
+              <path class="curve-line curve-backwardation" d="M 10,12 Q 60,18 100,35 T 190,55" stroke="#4CAF50" />
+              <text x="8" y="10" class="curve-label">Spot</text>
+              <text x="155" y="68" class="curve-label">Far month</text>
+            </svg>
           </div>
         </div>
         <div class="insight-box" style="margin-top:12px;">
-          <strong>Trading insight:</strong> Persistent backwardation is the strongest bullish signal in oil markets. It means physical barrels are in high demand NOW.
+          <strong>March 2026 status:</strong> Steep backwardation due to the Hormuz supply shock — physical barrels are in extreme demand NOW.
         </div>
       </section>
 
-      <!-- SLIDE 28: Key Data Releases -->
+      <!-- NEW SLIDE: Supply vs Demand Balance -->
+      <section>
+        <h2>Supply vs Demand — Key Price Drivers</h2>
+        <p>Oil prices are the real-time scorecard of this balance. <span class="term" data-term="EIA">EIA</span> weekly inventories are the empirical measure.</p>
+        <div class="balance-scale">
+          <div class="scale-side scale-supply">
+            <h3>Supply Factors</h3>
+            <div class="scale-factor factor-bullish"><span class="factor-icon">&#9650;</span> <span class="term" data-term="OPEC+">OPEC+</span> production cuts</div>
+            <div class="scale-factor factor-bearish"><span class="factor-icon">&#9660;</span> US shale growth (6-mo lag)</div>
+            <div class="scale-factor factor-bullish"><span class="factor-icon">&#9650;</span> Geopolitical disruptions</div>
+            <div class="scale-factor factor-bearish"><span class="factor-icon">&#9660;</span> <span class="term" data-term="SPR">SPR</span> releases</div>
+          </div>
+          <div class="scale-fulcrum">
+            <div class="fulcrum-icon">&#9878;</div>
+            <div class="fulcrum-label">Price</div>
+          </div>
+          <div class="scale-side scale-demand">
+            <h3>Demand Factors</h3>
+            <div class="scale-factor factor-bullish"><span class="factor-icon">&#9650;</span> China recovery / stimulus</div>
+            <div class="scale-factor factor-bearish"><span class="factor-icon">&#9660;</span> EV adoption / peak demand</div>
+            <div class="scale-factor factor-bullish"><span class="factor-icon">&#9650;</span> Seasonal refining demand</div>
+            <div class="scale-factor factor-bearish"><span class="factor-icon">&#9660;</span> Global recession risk</div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-top:14px;">
+          <strong>The scorecard:</strong> <span class="term" data-term="EIA">EIA</span> Weekly Inventories (released every Wednesday) act as the real-time empirical scorecard for this balance.
+        </div>
+      </section>
+
+      <!-- Key Data Releases -->
       <section>
         <h2>Key Data Releases That Move Oil</h2>
         <table>
@@ -599,10 +727,10 @@
         <span class="section-label">Section 06</span>
         <h1>Geopolitics & the 2026 Crisis</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">OPEC+, chokepoints & the Strait of Hormuz</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">OPEC+, chokepoints & the Strait of Hormuz</p>
       </section>
 
-      <!-- SLIDE 30: OPEC+ -->
+      <!-- OPEC+ -->
       <section>
         <h2><span class="term" data-term="OPEC+">OPEC+</span> — The Supply Cartel</h2>
         <div class="two-col">
@@ -634,28 +762,38 @@
         </div>
       </section>
 
-      <!-- SLIDE 31: Key Chokepoints -->
+      <!-- ENHANCED: Key Chokepoints with flow bars -->
       <section>
         <h2>Critical Oil Chokepoints</h2>
         <p>Narrow waterways through which massive volumes of oil must transit. Disruption = instant price spike.</p>
-        <table>
-          <thead>
-            <tr><th>Chokepoint</th><th>Flow (mb/d)</th><th>% of Seaborne Oil</th><th>Risk</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>Strait of Hormuz</strong></td><td>~20</td><td>~21%</td><td style="color:var(--negative);"><strong>HIGHEST — Iran controls north shore</strong></td></tr>
-            <tr><td>Strait of Malacca</td><td>~16</td><td>~17%</td><td>Piracy, China energy security</td></tr>
-            <tr><td>Suez Canal / SUMED</td><td>~9</td><td>~10%</td><td>Houthi attacks (2024), chokepoint alternatives</td></tr>
-            <tr><td>Bab el-Mandeb</td><td>~6</td><td>~7%</td><td>Yemen conflict, Houthi disruption</td></tr>
-            <tr><td>Turkish Straits</td><td>~3.5</td><td>~4%</td><td>Russian & Caspian oil exports</td></tr>
-          </tbody>
-        </table>
-        <div class="insight-box">
-          <strong>The Hormuz premium:</strong> ~20% of all seaborne oil passes through a 21-mile-wide strait. Any credible closure threat adds $5-15/bbl risk premium to Brent.
+        <div class="chokepoint-visual">
+          <div class="chokepoint-bar" data-label="Strait of Hormuz" data-flow="20">
+            <div class="chokepoint-fill" style="--flow-pct: 100%"></div>
+            <span class="chokepoint-flow-label">~20 mb/d (21% seaborne)</span>
+          </div>
+          <div class="chokepoint-bar" data-label="Strait of Malacca" data-flow="16">
+            <div class="chokepoint-fill" style="--flow-pct: 80%"></div>
+            <span class="chokepoint-flow-label">~16 mb/d (17%)</span>
+          </div>
+          <div class="chokepoint-bar" data-label="Suez Canal / SUMED" data-flow="9">
+            <div class="chokepoint-fill" style="--flow-pct: 45%"></div>
+            <span class="chokepoint-flow-label">~9 mb/d (10%)</span>
+          </div>
+          <div class="chokepoint-bar" data-label="Bab el-Mandeb" data-flow="6">
+            <div class="chokepoint-fill" style="--flow-pct: 30%"></div>
+            <span class="chokepoint-flow-label">~6 mb/d (7%)</span>
+          </div>
+          <div class="chokepoint-bar" data-label="Turkish Straits" data-flow="3.5">
+            <div class="chokepoint-fill" style="--flow-pct: 17.5%"></div>
+            <span class="chokepoint-flow-label">~3.5 mb/d (4%)</span>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-top:12px;">
+          <strong>The Hormuz premium:</strong> ~20% of all seaborne oil passes through a 21-mile-wide strait controlled by Iran. Any credible closure threat adds $5-15/bbl risk premium to Brent.
         </div>
       </section>
 
-      <!-- SLIDE 32: 2026 Iran Crisis Timeline -->
+      <!-- 2026 Iran Crisis Timeline -->
       <section>
         <h2>The 2026 Strait of Hormuz Crisis</h2>
         <div class="timeline">
@@ -673,7 +811,7 @@
           </div>
           <div class="timeline-item">
             <div class="timeline-date">March 2026</div>
-            <div class="timeline-text">Brent peaks at <strong style="color:var(--negative);">$126/bbl</strong>. <span class="term" data-term="SPR">SPR</span> releases announced. US, Japan, S. Korea coordinate emergency response.</div>
+            <div class="timeline-text">Brent peaks at <strong style="color:var(--error);">$126/bbl</strong>. <span class="term" data-term="SPR">SPR</span> releases announced. US, Japan, S. Korea coordinate emergency response.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-date">April-May 2026</div>
@@ -682,27 +820,67 @@
         </div>
       </section>
 
-      <!-- SLIDE 33: Crisis Market Impact -->
+      <!-- NEW SLIDE: Brent Price Trajectory -->
       <section>
-        <h2>2026 Crisis — Market Impact</h2>
-        <div class="stat-row">
-          <div class="stat-box"><div class="stat-number" style="color:var(--negative);">$126</div><div class="stat-label">Brent peak (per barrel)</div></div>
+        <h2>Brent Price Trajectory — 2026 Crisis</h2>
+        <p>The largest volume shock in oil market history sent Brent from ~$80 to $126 in eight weeks:</p>
+        <div class="price-trajectory">
+          <svg class="trajectory-chart" viewBox="0 0 600 250">
+            <!-- Grid lines -->
+            <line x1="50" y1="25" x2="580" y2="25" class="grid-line" />
+            <line x1="50" y1="85" x2="580" y2="85" class="grid-line" />
+            <line x1="50" y1="145" x2="580" y2="145" class="grid-line" />
+            <line x1="50" y1="205" x2="580" y2="205" class="grid-line" />
+            <!-- Y-axis labels -->
+            <text x="5" y="30" class="axis-label">$130</text>
+            <text x="5" y="90" class="axis-label">$110</text>
+            <text x="5" y="150" class="axis-label">$90</text>
+            <text x="5" y="210" class="axis-label">$70</text>
+            <!-- Price path: $80 → $85 → $102 → $126 → $105 → $98 → $102 -->
+            <path class="trajectory-path" d="M 55,185 L 130,175 L 210,145 L 290,85 L 350,30 L 430,75 L 510,90 L 575,85" stroke="url(#crisis-gradient)" />
+            <!-- Peak marker -->
+            <circle cx="350" cy="30" r="6" class="peak-marker" />
+            <text x="358" y="25" class="peak-label">$126 peak</text>
+            <!-- X-axis labels -->
+            <text x="55" y="235" class="axis-label">Dec '25</text>
+            <text x="180" y="235" class="axis-label">Jan</text>
+            <text x="290" y="235" class="axis-label">Feb</text>
+            <text x="350" y="235" class="axis-label">Mar</text>
+            <text x="460" y="235" class="axis-label">Apr</text>
+            <text x="555" y="235" class="axis-label">May</text>
+            <!-- Gradient definition -->
+            <defs>
+              <linearGradient id="crisis-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#c4a91a" />
+                <stop offset="45%" stop-color="#E63946" />
+                <stop offset="100%" stop-color="#c4a91a" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="stat-row" style="margin-top:8px;">
+          <div class="stat-box"><div class="stat-number" style="-webkit-text-fill-color: var(--error); background:none;">$126</div><div class="stat-label">Brent peak (per barrel)</div></div>
           <div class="stat-box"><div class="stat-number">20</div><div class="stat-label">mb/d transit disrupted</div></div>
           <div class="stat-box"><div class="stat-number">~60%</div><div class="stat-label">E&P stock surge (peak)</div></div>
           <div class="stat-box"><div class="stat-number">400M</div><div class="stat-label">bbls SPR remaining</div></div>
         </div>
-        <div class="two-col" style="margin-top:16px;">
-          <div class="card" style="border-left: 3px solid #4CAF50;">
-            <h4 style="color:#4CAF50;">Winners</h4>
+      </section>
+
+      <!-- Crisis Market Impact -->
+      <section>
+        <h2>2026 Crisis — Winners & Losers</h2>
+        <div class="two-col">
+          <div class="card winners" style="border-left: 3px solid var(--positive);">
+            <h4 style="color: var(--positive);">Winners</h4>
             <ul style="font-size:0.8em;">
-              <li><strong>E&P companies</strong> — direct oil price leverage</li>
-              <li><strong>Supermajors</strong> (XOM, CVX) — best risk-adjusted play</li>
+              <li><strong>E&P companies</strong> — direct oil price leverage; US production unaffected by Hormuz</li>
+              <li><strong>Supermajors</strong> (XOM, CVX) — best risk-adjusted play; upstream windfall</li>
               <li><strong>OFS</strong> — accelerated drilling activity</li>
-              <li><strong>LNG exporters</strong> — gas prices surged in sympathy</li>
+              <li><strong>LNG exporters</strong> — gas prices surged; US replaces blocked Qatar exports</li>
             </ul>
           </div>
-          <div class="card" style="border-left: 3px solid var(--negative);">
-            <h4 style="color:var(--negative);">Losers</h4>
+          <div class="card losers" style="border-left: 3px solid var(--error);">
+            <h4 style="color: var(--error);">Losers</h4>
             <ul style="font-size:0.8em;">
               <li><strong>Airlines</strong> — jet fuel costs spiked 80%+</li>
               <li><strong>Refiners</strong> — crude input costs surged faster than product prices</li>
@@ -711,9 +889,12 @@
             </ul>
           </div>
         </div>
+        <div class="insight-box" style="margin-top:14px;">
+          <strong>Key nuance:</strong> The $12 WTI-Brent spread acts as a massive tailwind for US refiners buying discounted domestic crude — a mixed picture, not purely negative.
+        </div>
       </section>
 
-      <!-- SLIDE 34: Quiz 4 -->
+      <!-- Quiz 4 -->
       <section class="quiz-slide" data-quiz="quiz4">
         <div class="quiz-container"></div>
       </section>
@@ -725,10 +906,10 @@
         <span class="section-label">Section 07</span>
         <h1>Venezuela</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">The sleeping giant of oil reserves</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">The sleeping giant of oil reserves</p>
       </section>
 
-      <!-- SLIDE 36: Venezuela Overview -->
+      <!-- Venezuela Overview -->
       <section>
         <h2>Venezuela — World's Largest Reserves</h2>
         <div class="two-col">
@@ -756,7 +937,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 37: Venezuela Investment Thesis -->
+      <!-- Venezuela Investment Thesis -->
       <section>
         <h2>Venezuela — The Reopening Play</h2>
         <div class="two-col">
@@ -794,10 +975,10 @@
         <span class="section-label">Section 08</span>
         <h1>Investment Thesis</h1>
         <hr class="section-divider">
-        <p style="font-size:1.1em; color: var(--text-muted);">Putting it all together</p>
+        <p style="font-size:1.1em; color: var(--on-surface-variant);">Putting it all together</p>
       </section>
 
-      <!-- SLIDE 39: Bull / Bear -->
+      <!-- Bull / Bear -->
       <section>
         <h2>Bull vs Bear — Oil Macro Outlook</h2>
         <div class="card-grid card-grid-2">
@@ -824,7 +1005,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 40: Recommendations -->
+      <!-- Recommendations -->
       <section>
         <h2>Sub-Sector Recommendations</h2>
         <table>
@@ -836,31 +1017,31 @@
               <td><strong>Supermajors</strong></td>
               <td><span class="ticker" data-ticker="XOM">XOM</span> / <span class="ticker" data-ticker="CVX">CVX</span></td>
               <td>Best risk-adjusted play. Diversified, dividend aristocrats, Venezuela optionality (CVX)</td>
-              <td style="color:#4CAF50;">Low-Medium</td>
+              <td style="color: var(--positive);">Low-Medium</td>
             </tr>
             <tr>
               <td><strong>E&P</strong></td>
               <td><span class="ticker" data-ticker="FANG">FANG</span> / <span class="ticker" data-ticker="EOG">EOG</span></td>
               <td>Highest FCF yields, lowest Permian costs, capital discipline leaders</td>
-              <td style="color:var(--accent);">Medium</td>
+              <td style="color: var(--primary);">Medium</td>
             </tr>
             <tr>
               <td><strong>Midstream</strong></td>
               <td><span class="ticker" data-ticker="EPD">EPD</span> / <span class="ticker" data-ticker="WMB">WMB</span></td>
               <td>Stable yields, fee-based, natural gas/LNG structural tailwind</td>
-              <td style="color:#4CAF50;">Low</td>
+              <td style="color: var(--positive);">Low</td>
             </tr>
             <tr>
               <td><strong>Refiners</strong></td>
               <td><span class="ticker" data-ticker="VLO">VLO</span></td>
               <td>Highest complexity, heavy sour crude advantage, best-in-class margins</td>
-              <td style="color:var(--accent);">Medium</td>
+              <td style="color: var(--primary);">Medium</td>
             </tr>
             <tr>
               <td><strong>OFS</strong></td>
               <td><span class="ticker" data-ticker="SLB">SLB</span></td>
               <td>Global leader, digital transformation, international growth</td>
-              <td style="color:var(--negative);">Medium-High</td>
+              <td style="color: var(--error);">Medium-High</td>
             </tr>
           </tbody>
         </table>
@@ -869,12 +1050,48 @@
         </div>
       </section>
 
-      <!-- SLIDE 41: Quiz 5 -->
+      <!-- NEW SLIDE: Sector Positioning Diagnostic -->
+      <section>
+        <h2>Sector Crisis Positioning</h2>
+        <p>How each energy sub-sector is positioned during the 2026 Hormuz crisis:</p>
+        <div class="sector-diagnostic">
+          <div class="sector-row">
+            <div class="sector-name">Supermajors</div>
+            <div class="sector-bar-wrap"><div class="sector-bar" style="--score: 92%"><span class="sector-bar-label">Strong Buy</span></div></div>
+            <div class="sector-status status-green">&#9679;</div>
+          </div>
+          <div class="sector-row">
+            <div class="sector-name">US E&P</div>
+            <div class="sector-bar-wrap"><div class="sector-bar" style="--score: 85%"><span class="sector-bar-label">Buy</span></div></div>
+            <div class="sector-status status-green">&#9679;</div>
+          </div>
+          <div class="sector-row">
+            <div class="sector-name">Midstream / LNG</div>
+            <div class="sector-bar-wrap"><div class="sector-bar" style="--score: 72%"><span class="sector-bar-label">Accumulate</span></div></div>
+            <div class="sector-status status-green">&#9679;</div>
+          </div>
+          <div class="sector-row">
+            <div class="sector-name">Refiners</div>
+            <div class="sector-bar-wrap"><div class="sector-bar" style="--score: 48%"><span class="sector-bar-label">Neutral — Mixed</span></div></div>
+            <div class="sector-status status-yellow">&#9679;</div>
+          </div>
+          <div class="sector-row">
+            <div class="sector-name">OFS</div>
+            <div class="sector-bar-wrap"><div class="sector-bar" style="--score: 62%"><span class="sector-bar-label">Selective Buy</span></div></div>
+            <div class="sector-status status-yellow">&#9679;</div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-top:16px;">
+          <strong>Key insight:</strong> US producers benefit most — domestic supply is unaffected by Hormuz, and WTI trades at a $12 discount to Brent, generating incredible FCF at $90/bbl.
+        </div>
+      </section>
+
+      <!-- Quiz 5 -->
       <section class="quiz-slide" data-quiz="quiz5">
         <div class="quiz-container"></div>
       </section>
 
-      <!-- SLIDE 42: Thank You -->
+      <!-- Thank You -->
       <section>
         <div class="slide-title">
           <h1>Thank You</h1>
@@ -897,5 +1114,6 @@
   <script src="js/charts.js"></script>
   <script src="js/quiz.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/nav.js"></script>
 </body>
 </html>

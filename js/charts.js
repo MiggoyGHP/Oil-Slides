@@ -14,6 +14,11 @@ const COMPANY_NAMES = {
 
 const dataCache = {};
 
+/** Read a computed CSS variable value from :root */
+function getCSSVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
 function initCharts() {
   document.addEventListener('click', function(e) {
     const ticker = e.target.closest('.ticker');
@@ -46,7 +51,6 @@ function computeEMA(data, period) {
   for (let i = 0; i < data.length; i++) {
     const close = data[i].close;
     if (ema === null) {
-      // Use SMA for the first `period` values
       if (i < period - 1) continue;
       let sum = 0;
       for (let j = i - period + 1; j <= i; j++) sum += data[j].close;
@@ -96,9 +100,10 @@ function computeMACD(data, fast = 12, slow = 26, signal = 9) {
   const validMacd = macdLine.filter(v => v !== null);
   const signalEma = emaArr(validMacd, signal);
 
-  // Map signal back
   let si = 0;
   const macdResult = [], signalResult = [], histResult = [];
+  const posColor = getCSSVar('--primary') || '#f2d801';
+  const negColor = getCSSVar('--error') || '#E63946';
   for (let i = 0; i < closes.length; i++) {
     if (macdLine[i] === null) continue;
     const m = Math.round(macdLine[i] * 1000) / 1000;
@@ -109,7 +114,7 @@ function computeMACD(data, fast = 12, slow = 26, signal = 9) {
       histResult.push({
         time: times[i],
         value: Math.round((m - s) * 1000) / 1000,
-        color: m - s >= 0 ? 'rgba(255, 215, 0, 0.6)' : 'rgba(230, 57, 70, 0.6)',
+        color: m - s >= 0 ? posColor + '99' : negColor + '99',
       });
     }
     si++;
@@ -119,7 +124,6 @@ function computeMACD(data, fast = 12, slow = 26, signal = 9) {
 }
 
 async function openChartModal(ticker) {
-  // Close existing
   const existing = document.querySelector('.chart-modal-overlay');
   if (existing) existing.remove();
 
@@ -130,7 +134,7 @@ async function openChartModal(ticker) {
   overlay.innerHTML = `
     <div class="chart-modal">
       <div class="chart-modal-header">
-        <h3>${companyName} <span style="color: var(--accent-sub)">(${ticker})</span></h3>
+        <h3>${companyName} <span style="color: var(--primary-dim)">(${ticker})</span></h3>
         <button class="chart-modal-close" title="Close">&times;</button>
       </div>
       <div class="chart-modal-tabs">
@@ -152,14 +156,14 @@ async function openChartModal(ticker) {
           <div class="financials-placeholder">
             <div class="icon">&#128202;</div>
             <p>Earnings & financial data for <strong>${ticker}</strong> will be available soon.</p>
-            <p style="font-size:0.8em; color: var(--text-muted)">Awaiting data from analyst screenshots.</p>
+            <p style="font-size:0.8em; color: var(--on-surface-variant)">Awaiting data from analyst screenshots.</p>
           </div>
         </div>
         <div id="tab-balance" class="tab-content" style="display:none;">
           <div class="financials-placeholder">
             <div class="icon">&#128200;</div>
             <p>Balance sheet data for <strong>${ticker}</strong> will be available soon.</p>
-            <p style="font-size:0.8em; color: var(--text-muted)">Awaiting data from analyst screenshots.</p>
+            <p style="font-size:0.8em; color: var(--on-surface-variant)">Awaiting data from analyst screenshots.</p>
           </div>
         </div>
       </div>
@@ -168,10 +172,8 @@ async function openChartModal(ticker) {
 
   document.body.appendChild(overlay);
 
-  // Prevent Reveal.js keyboard nav while modal is open
   if (window.Reveal) Reveal.configure({ keyboard: false });
 
-  // Close handlers
   overlay.querySelector('.chart-modal-close').onclick = () => closeChartModal(overlay);
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeChartModal(overlay);
@@ -183,7 +185,6 @@ async function openChartModal(ticker) {
     }
   });
 
-  // Tab switching
   overlay.querySelectorAll('.chart-modal-tab').forEach(tab => {
     tab.onclick = () => {
       overlay.querySelectorAll('.chart-modal-tab').forEach(t => t.classList.remove('active'));
@@ -193,7 +194,6 @@ async function openChartModal(ticker) {
     };
   });
 
-  // Render chart
   const data = await fetchTickerData(ticker);
   if (!data || data.length === 0) return;
 
@@ -202,20 +202,28 @@ async function openChartModal(ticker) {
 }
 
 function renderPriceChart(data, container) {
+  const surface = getCSSVar('--surface') || '#0c141f';
+  const textColor = getCSSVar('--on-surface') || '#dbe3f4';
+  const fontBody = getCSSVar('--font-body') || 'Inter';
+  const gridColor = 'rgba(74, 85, 104, 0.1)';
+  const scaleColor = 'rgba(74, 85, 104, 0.2)';
+  const upColor = getCSSVar('--primary') || '#f2d801';
+  const downColor = getCSSVar('--error') || '#E63946';
+
   const chart = LightweightCharts.createChart(container, {
     layout: {
-      background: { type: 'solid', color: '#0A1A2A' },
-      textColor: '#E6E6E6',
-      fontFamily: 'Poppins',
+      background: { type: 'solid', color: surface },
+      textColor: textColor,
+      fontFamily: fontBody,
     },
     grid: {
-      vertLines: { color: 'rgba(173, 136, 52, 0.08)' },
-      horzLines: { color: 'rgba(173, 136, 52, 0.08)' },
+      vertLines: { color: gridColor },
+      horzLines: { color: gridColor },
     },
     crosshair: { mode: 0 },
-    rightPriceScale: { borderColor: 'rgba(173, 136, 52, 0.3)' },
+    rightPriceScale: { borderColor: scaleColor },
     timeScale: {
-      borderColor: 'rgba(173, 136, 52, 0.3)',
+      borderColor: scaleColor,
       timeVisible: false,
     },
     handleScale: { axisPressedMouseMove: true },
@@ -223,16 +231,15 @@ function renderPriceChart(data, container) {
   });
 
   const candleSeries = chart.addCandlestickSeries({
-    upColor: '#FFD700',
-    downColor: '#E63946',
-    borderUpColor: '#FFD700',
-    borderDownColor: '#E63946',
-    wickUpColor: '#FFD700',
-    wickDownColor: '#E63946',
+    upColor: upColor,
+    downColor: downColor,
+    borderUpColor: upColor,
+    borderDownColor: downColor,
+    wickUpColor: upColor,
+    wickDownColor: downColor,
   });
   candleSeries.setData(data);
 
-  // EMAs
   const ema20 = chart.addLineSeries({
     color: '#00BCD4', lineWidth: 1, priceLineVisible: false,
     lastValueVisible: false, crosshairMarkerVisible: false,
@@ -253,7 +260,6 @@ function renderPriceChart(data, container) {
 
   chart.timeScale().fitContent();
 
-  // Resize observer
   const ro = new ResizeObserver(() => {
     chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
   });
@@ -261,21 +267,27 @@ function renderPriceChart(data, container) {
 }
 
 function renderMACDChart(data, container) {
+  const surface = getCSSVar('--surface') || '#0c141f';
+  const textColor = getCSSVar('--on-surface') || '#dbe3f4';
+  const fontBody = getCSSVar('--font-body') || 'Inter';
+  const gridColor = 'rgba(74, 85, 104, 0.06)';
+  const scaleColor = 'rgba(74, 85, 104, 0.2)';
+
   const chart = LightweightCharts.createChart(container, {
     layout: {
-      background: { type: 'solid', color: '#0A1A2A' },
-      textColor: '#E6E6E6',
-      fontFamily: 'Poppins',
+      background: { type: 'solid', color: surface },
+      textColor: textColor,
+      fontFamily: fontBody,
       fontSize: 10,
     },
     grid: {
-      vertLines: { color: 'rgba(173, 136, 52, 0.05)' },
-      horzLines: { color: 'rgba(173, 136, 52, 0.05)' },
+      vertLines: { color: gridColor },
+      horzLines: { color: gridColor },
     },
     crosshair: { mode: 0 },
-    rightPriceScale: { borderColor: 'rgba(173, 136, 52, 0.3)' },
+    rightPriceScale: { borderColor: scaleColor },
     timeScale: {
-      borderColor: 'rgba(173, 136, 52, 0.3)',
+      borderColor: scaleColor,
       timeVisible: false,
     },
     handleScale: { axisPressedMouseMove: true },
